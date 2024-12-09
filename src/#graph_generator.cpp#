@@ -1,0 +1,353 @@
+#include <iostream>
+#include <vector>
+#include <limits>
+#include <random>
+
+// If you rely on matrixvalue and empty:
+using matrixvalue = unsigned;
+const matrixvalue empty = std::numeric_limits<matrixvalue>::max();
+
+class GraphGenerator {
+private:
+    int n; // number of nodes
+    double p; // probability of edge
+    std::mt19937 gen;
+    std::uniform_real_distribution<> dist;
+    std::uniform_int_distribution<matrixvalue> weight_dist;
+
+    // Replace lambdas stored in auto data members with static functions.
+    static matrixvalue add_func(matrixvalue a, matrixvalue b) {
+        if (a == empty) return b;
+        if (b == empty) return a;
+        return (a < b) ? a : b;
+    }
+
+    static matrixvalue mult_func(matrixvalue dist, matrixvalue w) {
+        if (dist == empty || w == empty) return empty;
+        return dist + w;
+    }
+
+public:
+    GraphGenerator(int nodes, double probability, int seed=42) 
+        : n(nodes), p(probability), gen(seed), dist(0.0,1.0), weight_dist(1,100) {}
+
+    // Example function to generate a random graph
+    // You can create an adjacency matrix or list based on p
+    std::vector<std::vector<matrixvalue>> generate_adjacency_matrix() {
+        std::vector<std::vector<matrixvalue>> adjacency((size_t)n, std::vector<matrixvalue>((size_t)n, empty));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    // no self loops
+                    adjacency[i][j] = empty;
+                } else {
+                    double r = dist(gen);
+                    if (r < p) {
+                        matrixvalue w = weight_dist(gen);
+                        adjacency[i][j] = w;
+                    } else {
+                        adjacency[i][j] = empty;
+                    }
+                }
+            }
+        }
+        return adjacency;
+    }
+
+    // If you need to apply add_func and mult_func somewhere, you can do so:
+    void example_usage() {
+        matrixvalue a = 10;
+        matrixvalue b = 20;
+        matrixvalue c = add_func(a,b);       // c should be min(a,b)
+        matrixvalue d = mult_func(a,5);      // d = a+5 if a != empty
+        std::cout << "c=" << (c == empty ? '.' : '0' + c) << " d=" << (d == empty ? '.' : '0' + d) << "\n";
+    }
+};
+
+int main() {
+    int n = 5;
+    double p = 0.3;
+    GraphGenerator gen(n, p);
+
+    auto adjacency = gen.generate_adjacency_matrix();
+    // Print the generated adjacency matrix for debugging
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (adjacency[i][j] == empty) {
+                std::cout << ". ";
+            } else {
+                std::cout << adjacency[i][j] << " ";
+            }
+        }
+        std::cout << "\n";
+    }
+
+    gen.example_usage();
+    return 0;
+}
+tream>
+#include <vector>
+#include <limits>
+#include <random>
+
+// If you rely on matrixvalue and empty:
+using matrixvalue = unsigned;
+const matrixvalue empty = std::numeric_limits<matrixvalue>::max();
+
+class GraphGenerator {
+private:
+  int n; // number of nodes
+  double p; // probability of edge
+  std::mt19937 gen;
+  std::uniform_real_distribution<> dist;
+  std::uniform_int_distribution<matrixvalue> weight_dist;
+
+  // Replace lambdas stored in auto data members with static functions.
+  static matrixvalue add_func(matrixvalue a, matrixvalue b) {
+    if (a == empty) return b;
+    if (b == empty) return a;
+    return (a < b) ? a : b;
+  }
+
+  static matrixvalue mult_func(matrixvalue dist, matrixvalue w) {
+    if (dist == empty || w == empty) return empty;
+    return dist + w;
+  }
+
+public:
+  GraphGenerator(int nodes, double probability, int seed=42)
+    : n(nodes), p(probability), gen(seed), dist(0.0,1.0), weight_dist(1,100) {}
+
+  // Example function to generate a random graph
+  // You can create an adjacency matrix or list based on p
+  std::vector<std::vector<matrixvalue>> generate_adjacency_matrix() {
+    std::vector<std::vector<matrixvalue>> adjacency((size_t)n, std::vector<matrixvalue>((size_t)n, empty));
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+	if (i == j) {
+	  // no self loops
+	  adjacency[i][j] = empty;
+	} else {
+	  double r = dist(gen);
+	  if (r < p) {
+	    matrixvalue w = weight_dist(gen);
+	    adjacency[i][j] = w;
+	  } else {
+	    adjacency[i][j] = empty;
+	  }
+	}
+      }
+    }
+    return adjacency;
+  }
+
+  // If you need to apply add_func and mult_func somewhere, you can do so:
+  void example_usage() {
+    matrixvalue a = 10;
+    matrixvalue b = 20;
+    matrixvalue c = add_func(a,b);       // c should be min(a,b)
+    matrixvalue d = mult_func(a,5);      // d = a+5 if a != empty
+    std::cout << "c=" << (c == empty ? '.' : '0' + c) << " d=" << (d == empty ? '.' : '0' + d) << "\n";
+  }
+};
+
+int main() {
+  int n = 5;
+  double p = 0.3;
+  GraphGenerator gen(n, p);
+
+  auto adjacency = gen.generate_adjacency_matrix();
+  // Print the generated adjacency matrix for debugging
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      if (adjacency[i][j] == empty) {
+#include <iostream>
+#include <vector>
+#include <limits>
+#include <random>
+
+// If you rely on matrixvalue and empty:
+using matrixvalue = unsigned;
+const matrixvalue empty = std::numeric_limits<matrixvalue>::max();
+
+class GraphGenerator {
+private:
+    int n; // number of nodes
+    double p; // probability of edge
+    std::mt19937 gen;
+    std::uniform_real_distribution<> dist;
+    std::uniform_int_distribution<matrixvalue> weight_dist;
+
+    // Replace lambdas stored in auto data members with static functions.
+    static matrixvalue add_func(matrixvalue a, matrixvalue b) {
+        if (a == empty) return b;
+        if (b == empty) return a;
+        return (a < b) ? a : b;
+    }
+
+    static matrixvalue mult_func(matrixvalue dist, matrixvalue w) {
+        if (dist == empty || w == empty) return empty;
+        return dist + w;
+    }
+
+public:
+    GraphGenerator(int nodes, double probability, int seed=42) 
+        : n(nodes), p(probability), gen(seed), dist(0.0,1.0), weight_dist(1,100) {}
+
+    // Example function to generate a random graph
+    // You can create an adjacency matrix or list based on p
+    std::vector<std::vector<matrixvalue>> generate_adjacency_matrix() {
+        std::vector<std::vector<matrixvalue>> adjacency((size_t)n, std::vector<matrixvalue>((size_t)n, empty));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    // no self loops
+                    adjacency[i][j] = empty;
+                } else {
+                    double r = dist(gen);
+                    if (r < p) {
+                        matrixvalue w = weight_dist(gen);
+                        adjacency[i][j] = w;
+                    } else {
+                        adjacency[i][j] = empty;
+                    }
+                }
+            }
+        }
+        return adjacency;
+    }
+
+    // If you need to apply add_func and mult_func somewhere, you can do so:
+    void example_usage() {
+        matrixvalue a = 10;
+        matrixvalue b = 20;
+        matrixvalue c = add_func(a,b);       // c should be min(a,b)
+        matrixvalue d = mult_func(a,5);      // d = a+5 if a != empty
+        std::cout << "c=" << (c == empty ? '.' : '0' + c) << " d=" << (d == empty ? '.' : '0' + d) << "\n";
+    }
+};
+
+int main() {
+    int n = 5;
+    double p = 0.3;
+    GraphGenerator gen(n, p);
+
+    auto adjacency = gen.generate_adjacency_matrix();
+    // Print the generated adjacency matrix for debugging
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (adjacency[i][j] == empty) {
+                std::cout << ". ";
+            } else {
+                std::cout << adjacency[i][j] << " ";
+            }
+        }
+        std::cout << "\n";
+    }
+
+    gen.example_usage();
+    return 0;
+}
+#include <iostream>
+#include <vector>
+#include <limits>
+#include <random>
+
+// If you rely on matrixvalue and empty:
+using matrixvalue = unsigned;
+const matrixvalue empty = std::numeric_limits<matrixvalue>::max();
+
+class GraphGenerator {
+private:
+    int n; // number of nodes
+    double p; // probability of edge
+    std::mt19937 gen;
+    std::uniform_real_distribution<> dist;
+    std::uniform_int_distribution<matrixvalue> weight_dist;
+
+    // Replace lambdas stored in auto data members with static functions.
+    static matrixvalue add_func(matrixvalue a, matrixvalue b) {
+        if (a == empty) return b;
+        if (b == empty) return a;
+        return (a < b) ? a : b;
+    }
+
+    static matrixvalue mult_func(matrixvalue dist, matrixvalue w) {
+        if (dist == empty || w == empty) return empty;
+        return dist + w;
+    }
+
+public:
+    GraphGenerator(int nodes, double probability, int seed=42) 
+        : n(nodes), p(probability), gen(seed), dist(0.0,1.0), weight_dist(1,100) {}
+
+    // Example function to generate a random graph
+    // You can create an adjacency matrix or list based on p
+    std::vector<std::vector<matrixvalue>> generate_adjacency_matrix() {
+        std::vector<std::vector<matrixvalue>> adjacency((size_t)n, std::vector<matrixvalue>((size_t)n, empty));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    // no self loops
+                    adjacency[i][j] = empty;
+                } else {
+                    double r = dist(gen);
+                    if (r < p) {
+                        matrixvalue w = weight_dist(gen);
+                        adjacency[i][j] = w;
+                    } else {
+                        adjacency[i][j] = empty;
+                    }
+                }
+            }
+        }
+        return adjacency;
+    }
+
+    // If you need to apply add_func and mult_func somewhere, you can do so:
+    void example_usage() {
+        matrixvalue a = 10;
+        matrixvalue b = 20;
+        matrixvalue c = add_func(a,b);       // c should be min(a,b)
+        matrixvalue d = mult_func(a,5);      // d = a+5 if a != empty
+        std::cout << "c=" << (c == empty ? '.' : '0' + c) << " d=" << (d == empty ? '.' : '0' + d) << "\n";
+    }
+};
+
+int main() {
+    int n = 5;
+    double p = 0.3;
+    GraphGenerator gen(n, p);
+
+    auto adjacency = gen.generate_adjacency_matrix();
+    // Print the generated adjacency matrix for debugging
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (adjacency[i][j] == empty) {
+                std::cout << ". ";
+            } else {
+                std::cout << adjacency[i][j] << " ";
+            }
+        }
+        std::cout << "\n";
+    }
+
+    gen.example_usage();
+    return 0;
+}
+	std::cout << ". ";
+      } else {
+	std::cout << adjacency[i][j] << " ";
+      }
+    }
+    std::cout << "\n";
+  }
+
+  gen.example_usage();
+  return 0;
+}
+~
