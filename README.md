@@ -1,5 +1,5 @@
 # Graph_Algorithms
-
+Orlan and Dominic
 
 This project implements and benchmarks graph algorithms, including Single Source Shortest Path (SSSP) algorithms (weighted and unweighted), matrix-based operations, sparse matrix optimizations, and parallelism using OpenMP. The project allows users to test the algorithms on custom-generated graphs of varying sizes and densities.
 
@@ -10,7 +10,6 @@ This project implements and benchmarks graph algorithms, including Single Source
 4. [Running the Code](#running-the-code)
 5. [Code Structure](#code-structure)
 6. [Example Usage](#example-usage)
-7. [Acknowledgments](#acknowledgments)
 
 ---
 
